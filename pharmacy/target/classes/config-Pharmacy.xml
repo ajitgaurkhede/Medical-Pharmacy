@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="classpath:medicalpharmacy/DetailsPharmacy.properties"></property>
+	</bean>
+
+	<bean id="pharmacy" class="medicalpharmacy.Pharmacy">
+		<property name="pharmName" value="${Pharmacy.pharmName}" />
+		<property name="licenseNumber"
+			value="${Pharmacy.licenseNumber}" />
+		<property name="address" value="${Pharmacy.address}" />
+		<property name="mobile" value="${Pharmacy.mobile}" />
+	</bean>
+
+	<bean id="acyclovir" class="medicalpharmacy.Medicine">
+		<property name="brandName" value="Acyclovir" />
+		<property name="price" value="455.75" />
+		<property name="quantity" value="54" />
+		<property name="status" value=" "></property>
+	</bean>
+
+
+	<bean id="abacavir" class="medicalpharmacy.Medicine">
+		<property name="brandName" value="Abacavir" />
+		<property name="price" value="785" />
+		<property name="quantity" value="22" />
+		<property name="status" value=" "></property>
+	</bean>
+
+	<bean id="lamivudine" class="medicalpharmacy.Medicine">
+		<property name="brandName" value="Lamivudine" />
+		<property name="price" value="255.50" />
+		<property name="quantity" value="8" />
+		<property name="status" value=" "></property>
+	</bean>
+
+	<!-- This bean for ordering medicine -->
+	<bean id="first" class="medicalpharmacy.Orders">
+		<property name="medicineName" value="Lamivudine" />
+		<property name="quantity" value="6" />
+		<property name="status" value=" "></property>
+	</bean>
+
+	<bean id="inventory" class="pharmacysystem.Implementations">
+		<property name="medicines">
+			<list>
+				<ref bean="acyclovir" />
+				<ref bean="abacavir" />
+				<ref bean="lamivudine" />
+			</list>
+		</property>
+		<property name="order" ref="first" />
+		<property name="doctorList">
+			<list>
+				<ref bean="doctorHira" />
+				<ref bean="doctorRudra" />
+				<ref bean="doctorRidhi" />
+			</list>
+		</property>
+		<property name="pharmacyInfo" ref="pharmacy" />
+	</bean>
+
+	<bean id="doctorHira" class="medicalpharmacy.Doctor">
+		<property name="doctortName" value="Hirabai Manerao" />
+		<property name="mobile" value="9988774455" />
+	</bean>
+
+	<bean id="doctorRudra" class="medicalpharmacy.Doctor">
+		<property name="doctortName" value="Rudra Shrivastava" />
+		<property name="mobile" value="9887724466" />
+	</bean>
+
+	<bean id="doctorRidhi" class="medicalpharmacy.Doctor">
+		<property name="doctortName" value="Ridhi Malhotra" />
+		<property name="mobile" value="9988774455" />
+	</bean>
+
+
+
+</beans>
